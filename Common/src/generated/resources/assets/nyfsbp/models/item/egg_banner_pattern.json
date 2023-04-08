@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nyfsbp:item/egg_banner_pattern"
+  }
+}

@@ -1,0 +1,9 @@
+// 1.19.3	2023-04-08T01:41:36.4517545	Tags for minecraft:banner_pattern mod id nyfsbp
+4410fbd34d4db693412490cdb95702aa66b8846b data/minecraft/tags/banner_pattern/no_item_required.json
+f2b56fb02db20e28a5adbd925d53c84bf7493b55 data/nyfsbp/tags/banner_pattern/beetroot_banners.json
+1efc5100cb742dc028c7f78cf6c9ab26c80c4391 data/nyfsbp/tags/banner_pattern/carrot_banners.json
+cc099124ee51d260ffa9d0db8ed7fea2779c8f62 data/nyfsbp/tags/banner_pattern/egg_banners.json
+e8e50cd01a414a8573b7b4eaaeffdb599bd0e6cf data/nyfsbp/tags/banner_pattern/gem_banners.json
+6487cafa09d780ee0a5e46428f4d4319d1ee3008 data/nyfsbp/tags/banner_pattern/llama_banners.json
+423a46bd42625cb957f12287ce391fef511ddbd5 data/nyfsbp/tags/banner_pattern/moon_banners.json
+12b07082de0c80bdc889b9ae387acf1500136dff data/nyfsbp/tags/banner_pattern/vex_banners.json
