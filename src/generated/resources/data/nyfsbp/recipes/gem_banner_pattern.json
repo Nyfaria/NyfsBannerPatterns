@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "E": {
+      "item": "minecraft:emerald"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    }
+  },
+  "pattern": [
+    "DED",
+    "EPE",
+    "DED"
+  ],
+  "result": {
+    "item": "nyfsbp:gem_banner_pattern"
+  }
+}

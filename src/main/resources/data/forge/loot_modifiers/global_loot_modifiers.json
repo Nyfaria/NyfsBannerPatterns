@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "entries": [
+    "nyfsbp:bunny_drop_egg_pattern",
+    "nyfsbp:vex_drop_vex_pattern",
+    "nyfsbp:llama_drop_llama_pattern",
+    "nyfsbp:carrots_drop_carrot_pattern"
+  ]
+}
