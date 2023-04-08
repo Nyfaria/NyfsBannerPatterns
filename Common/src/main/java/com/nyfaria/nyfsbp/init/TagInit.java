@@ -1,11 +1,9 @@
 package com.nyfaria.nyfsbp.init;
 
 import com.nyfaria.nyfsbp.Constants;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class TagInit {
@@ -25,19 +23,8 @@ public class TagInit {
 
     }
 
-//    public static TagKey<Morph> morphTag(String path) {
-//        return HMMMorphInit.getRegistry().tags().createTagKey(new ResourceLocation(HundredDaysStory.MODID, path));
-//    }
-
-    public static TagKey<Block> blockTag(String path) {
-        return TagKey.create(Registries.BLOCK,new ResourceLocation(Constants.MODID, path));
-    }
-
-    public static TagKey<Item> itemTag(String path) {
-        return TagKey.create(Registries.ITEM,new ResourceLocation(Constants.MODID, path));
-    }
     public static TagKey<BannerPattern> bannerPatternTag(String path) {
-        return TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(Constants.MODID,path));
+        return TagKey.create(Registry.BANNER_PATTERN_REGISTRY, new ResourceLocation(Constants.MODID,path));
     }
 
 }

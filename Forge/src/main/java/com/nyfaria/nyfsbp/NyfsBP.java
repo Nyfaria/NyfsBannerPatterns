@@ -30,9 +30,9 @@ public class NyfsBP {
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         boolean includeServer = event.includeServer();
-        generator.addProvider(event.includeClient(), new ModLangProvider(generator.getPackOutput()));
-        generator.addProvider(includeServer, new ModItemModelProvider(generator.getPackOutput(), existingFileHelper));
-        generator.addProvider(includeServer, new ModTagProvider.BannerPatterns(generator.getPackOutput(),event.getLookupProvider(), existingFileHelper));
-        generator.addProvider(includeServer, new ModRecipeProvider(generator.getPackOutput()));
+        generator.addProvider(event.includeClient(), new ModLangProvider(generator));
+        generator.addProvider(includeServer, new ModItemModelProvider(generator, existingFileHelper));
+        generator.addProvider(includeServer, new ModTagProvider.BannerPatterns(generator, existingFileHelper));
+        generator.addProvider(includeServer, new ModRecipeProvider(generator));
     }
 }

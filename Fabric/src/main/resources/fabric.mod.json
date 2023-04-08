@@ -13,9 +13,6 @@
   "entrypoints": {
     "main": [
       "com.nyfaria.nyfsbp.NyfsBP"
-    ],
-    "client": [
-      "com.nyfaria.nyfsbp.NyfsBPClient"
     ]
   },
   "mixins": [

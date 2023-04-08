@@ -3,12 +3,12 @@ package com.nyfaria.nyfsbp.init;
 import com.nyfaria.nyfsbp.Constants;
 import com.nyfaria.nyfsbp.registration.RegistrationProvider;
 import com.nyfaria.nyfsbp.registration.RegistryObject;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class BannerPatternInit {
 
-    public static final RegistrationProvider<BannerPattern> BANNER_PATTERNS = RegistrationProvider.get(BuiltInRegistries.BANNER_PATTERN, Constants.MODID);
+    public static final RegistrationProvider<BannerPattern> BANNER_PATTERNS = RegistrationProvider.get(Registry.BANNER_PATTERN, Constants.MODID);
 
     public static final RegistryObject<BannerPattern> PATTERN_A = registerBannerPattern("pattern_a");
     public static final RegistryObject<BannerPattern> PATTERN_B = registerBannerPattern("pattern_b");

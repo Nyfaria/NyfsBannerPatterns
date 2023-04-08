@@ -5,7 +5,7 @@ import com.nyfaria.nyfsbp.Constants;
 import com.nyfaria.nyfsbp.init.BannerPatternInit;
 import com.nyfaria.nyfsbp.init.ItemInit;
 import com.nyfaria.nyfsbp.registration.RegistryObject;
-import net.minecraft.data.PackOutput;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
@@ -27,7 +27,7 @@ public class ModLangProvider extends LanguageProvider {
             "sus", ""
     );
 
-    public ModLangProvider(PackOutput gen) {
+    public ModLangProvider(DataGenerator gen) {
         super(gen, Constants.MODID, "en_us");
     }
 

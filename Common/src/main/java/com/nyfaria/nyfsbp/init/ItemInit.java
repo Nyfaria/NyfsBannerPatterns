@@ -3,14 +3,15 @@ package com.nyfaria.nyfsbp.init;
 import com.nyfaria.nyfsbp.Constants;
 import com.nyfaria.nyfsbp.registration.RegistrationProvider;
 import com.nyfaria.nyfsbp.registration.RegistryObject;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BannerPatternItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 public class ItemInit {
-    public static final RegistrationProvider<Item> ITEMS = RegistrationProvider.get(Registries.ITEM, Constants.MODID);
+    public static final RegistrationProvider<Item> ITEMS = RegistrationProvider.get(Registry.ITEM, Constants.MODID);
 
     public static final RegistryObject<Item> PATTERN_ITEM_EGG = registerBannerItem("egg_banner_pattern", TagInit.EGG_BANNERS);
     public static final RegistryObject<Item> PATTERN_ITEM_MOON = registerBannerItem("moon_banner_pattern", TagInit.MOON_BANNERS);
@@ -24,7 +25,7 @@ public class ItemInit {
         return new Item.Properties();
     }
     public static RegistryObject<Item> registerBannerItem(String name, TagKey<BannerPattern> tag) {
-        return ITEMS.register(name, () -> new BannerPatternItem(tag,getItemProperties().stacksTo(1)));
+        return ITEMS.register(name, () -> new BannerPatternItem(tag,getItemProperties().tab(CreativeModeTab.TAB_MATERIALS).stacksTo(1)));
     }
     public static void loadClass() {
     }

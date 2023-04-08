@@ -1,10 +1,8 @@
 package com.nyfaria.nyfsbp.datagen;
 
 import com.nyfaria.nyfsbp.Constants;
-import com.nyfaria.nyfsbp.NyfsBP;
 import com.nyfaria.nyfsbp.init.ItemInit;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -14,10 +12,9 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class ModItemModelProvider extends ItemModelProvider {
-    public ModItemModelProvider(PackOutput generator, ExistingFileHelper existingFileHelper) {
+    public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, Constants.MODID, existingFileHelper);
     }
 
