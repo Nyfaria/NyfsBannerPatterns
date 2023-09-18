@@ -21,8 +21,8 @@ public class CommonClass {
         if (level != null && level.getDayTime() % 18000 == 0 && level.getMoonPhase() == 0) {
             server.getPlayerList().getPlayers().forEach(player -> {
                 if (player.getRandom().nextInt(2) == 0) {
-                    ItemEntity moonPatternEntity = new ItemEntity(player.level, player.getX(), player.getY(), player.getZ(), ItemInit.PATTERN_ITEM_MOON.get().getDefaultInstance());
-                    player.level.addFreshEntity(moonPatternEntity);
+                    ItemEntity moonPatternEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ItemInit.PATTERN_ITEM_MOON.get().getDefaultInstance());
+                    player.level().addFreshEntity(moonPatternEntity);
                 }
             });
         }
