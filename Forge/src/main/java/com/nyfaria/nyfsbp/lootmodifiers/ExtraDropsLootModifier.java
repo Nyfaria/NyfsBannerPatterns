@@ -23,7 +23,6 @@ public class ExtraDropsLootModifier extends LootModifier {
 
 	public ExtraDropsLootModifier(LootItemCondition[] conditions, List<ItemStack> additionalStacks) {
 		super(conditions);
-
 		this.additionalStacks = additionalStacks;
 	}
 

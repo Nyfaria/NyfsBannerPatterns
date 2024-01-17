@@ -18,9 +18,9 @@ public class CommonClass {
 
     public static void checkMoonPhase(MinecraftServer server){
         ServerLevel level = server.getLevel(Level.OVERWORLD);
-        if (level != null && level.getDayTime() % 18000 == 0 && level.getMoonPhase() == 0) {
+        if (level != null && ((int)(level.getDayTime() % 24000L) == 18000) && level.getMoonPhase() == 0) {
             server.getPlayerList().getPlayers().forEach(player -> {
-                if (player.getRandom().nextInt(2) == 0) {
+                if (player.getRandom().nextInt(20) == 0) {
                     ItemEntity moonPatternEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ItemInit.PATTERN_ITEM_MOON.get().getDefaultInstance());
                     player.level().addFreshEntity(moonPatternEntity);
                 }

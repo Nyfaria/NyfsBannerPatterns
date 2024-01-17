@@ -2,7 +2,7 @@
   "type": "nyfsbp:extra_drops",
   "conditions": [
     {
-      "chance": 1.0,
+      "chance": 0.05,
       "condition": "minecraft:random_chance"
     },
     {
@@ -10,6 +10,13 @@
       "block": "minecraft:carrots",
       "properties": {
         "age": "7"
+      }
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "minecraft:player"
       }
     }
   ],

@@ -2,6 +2,7 @@ plugins {
     id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
+    id "me.modmuss50.mod-publish-plugin" version "0.3.3"
 }
 
 archivesBaseName = "${mod_id}-fabric-${minecraft_version}"
@@ -16,6 +17,8 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":Common")
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
 }
 
 loom {
@@ -92,4 +95,32 @@ publishing {
             url "file://" + System.getenv("local_maven")
         }
     }
+}
+publishMods {
+    file = remapJar.archiveFile
+    changelog = project(":Common").file("changelog.md").text
+    type = STABLE
+    modLoaders.add("fabric")
+    displayName = "${mod_name}-${minecraft_version}-[Fabric]-${project.property('version')}"
+    if (curseforge_publishing_enabled.toBoolean()) {
+        curseforge {
+            projectId = curseforge_project_id
+            accessToken = curseforge_token
+            minecraftVersions.add(minecraft_version)
+            requires {
+                slug = "fabric-api"
+            }
+        }
+    }
+    if (modrinth_publishing_enabled.toBoolean()) {
+        modrinth {
+            accessToken = modrinth_token
+            projectId = modrinth_project_id
+            minecraftVersions.add(minecraft_version)
+            requires {
+                slug = "fabric-api"
+            }
+        }
+    }
+
 }
