@@ -1,57 +1,56 @@
 package com.nyfaria.nyfsbp;
 
-import com.nyfaria.nyfsbp.init.ItemInit;
+import com.jcraft.jorbis.*;
+import com.nyfaria.nyfsbp.init.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.EntitySubPredicate;
-import net.minecraft.advancements.critereon.EntityTypePredicate;
-import net.minecraft.advancements.critereon.PlayerPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CarrotBlock;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.LootPool;
-import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.fabricmc.fabric.api.event.lifecycle.v1.*;
+import net.fabricmc.fabric.api.itemgroup.v1.*;
+import net.fabricmc.fabric.api.loot.v3.*;
+import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.registries.*;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.storage.loot.*;
+import net.minecraft.world.level.storage.loot.entries.*;
+import net.minecraft.world.level.storage.loot.predicates.*;
 
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class NyfsBP implements ModInitializer {
-
+    
     @Override
     public void onInitialize() {
         Constants.LOG.info("Hello Fabric world!");
         CommonClass.init();
-        LootTableEvents.MODIFY.register((resourceManager, lootTables, resourceLocation, builder, lootTableSource) -> {
-            if (EntityType.RABBIT.getDefaultLootTable().equals(resourceLocation)) {
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.INGREDIENTS).register(
+            content -> {
+                ItemInit.ITEMS.getEntries().forEach(entry -> {
+                    content.accept(entry.get());
+                });
+            }
+        );
+
+        LootTableEvents.MODIFY.register((key,builder, loottables, provider) -> {
+            if (EntityType.RABBIT.getDefaultLootTable().equals(key.location())) {
                 LootPool.Builder poolBuilder = LootPool.lootPool().conditionally(
                                 List.of(
                                         LootItemRandomChanceCondition.randomChance(0.1f).build(),
                                         LootItemKilledByPlayerCondition.killedByPlayer().build()
-                                        ))
+                                ))
                         .add(LootItem.lootTableItem(ItemInit.PATTERN_ITEM_EGG.get()));
                 builder.pool(poolBuilder.build());
             }
-            if (EntityType.VEX.getDefaultLootTable().equals(resourceLocation)) {
+            if (EntityType.VEX.getDefaultLootTable().equals(key.location())) {
                 LootPool.Builder poolBuilder = LootPool.lootPool().conditionally(
-                        List.of(
-                                LootItemRandomChanceCondition.randomChance(0.1f).build(),
-                                LootItemKilledByPlayerCondition.killedByPlayer().build()
-                        ))
+                                List.of(
+                                        LootItemRandomChanceCondition.randomChance(0.1f).build(),
+                                        LootItemKilledByPlayerCondition.killedByPlayer().build()
+                                ))
                         .add(LootItem.lootTableItem(ItemInit.PATTERN_ITEM_VEX.get()));
                 builder.pool(poolBuilder.build());
             }
-            if (EntityType.LLAMA.getDefaultLootTable().equals(resourceLocation)) {
+            if (EntityType.LLAMA.getDefaultLootTable().equals(key.location())) {
                 LootPool.Builder poolBuilder = LootPool.lootPool().conditionally(
                                 List.of(
                                         LootItemRandomChanceCondition.randomChance(0.1f).build(),
@@ -60,19 +59,19 @@ public class NyfsBP implements ModInitializer {
                         .add(LootItem.lootTableItem(ItemInit.PATTERN_ITEM_LLAMA.get()));
                 builder.pool(poolBuilder.build());
             }
-            if (Blocks.CARROTS.getLootTable().equals(resourceLocation)) {
+            if (Blocks.CARROTS.getLootTable().equals(key.location())) {
                 LootPool.Builder poolBuilder = LootPool.lootPool().conditionally(List.of(
                                 LootItemRandomChanceCondition.randomChance(0.05f).build(),
-                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.PLAYER))).build(),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(provider.lookup(Registries.ENTITY_TYPE).get(),EntityType.PLAYER))).build(),
                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CARROTS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CarrotBlock.AGE, 7)).build()
                         ))
                         .add(LootItem.lootTableItem(ItemInit.PATTERN_ITEM_CARROT.get()));
                 builder.pool(poolBuilder.build());
             }
-            if (Blocks.BEETROOTS.getLootTable().equals(resourceLocation)) {
+            if (Blocks.BEETROOTS.getLootTable().equals(key.location())) {
                 LootPool.Builder poolBuilder = LootPool.lootPool().conditionally(List.of(
                                 LootItemRandomChanceCondition.randomChance(0.05f).build(),
-                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(EntityType.PLAYER))).build(),
+                                LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(provider.lookup(Registries.ENTITY_TYPE).get(),EntityType.PLAYER))).build(),
                                 LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.BEETROOTS).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CarrotBlock.AGE, 3)).build()
                         ))
                         .add(LootItem.lootTableItem(ItemInit.PATTERN_ITEM_BEETROOT.get()));

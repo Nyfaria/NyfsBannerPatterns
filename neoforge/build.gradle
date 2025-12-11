@@ -1,0 +1,76 @@
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev' version '2.0.123'
+    id "me.modmuss50.mod-publish-plugin" version "1.0.0"
+    id 'com.matyrobbrt.mc.registrationutils' version "${regutils_version}"
+}
+
+
+// Automatically enable neoforge AccessTransformers if the file exists
+// This location is hardcoded in FML and can not be changed.
+// https://github.com/neoforged/FancyModLoader/blob/a952595eaaddd571fbc53f43847680b00894e0c1/loader/src/main/java/net/neoforged/fml/loading/moddiscovery/ModFile.java#L118
+
+neoForge {
+    version = "${neoforge_version}"
+    def at = project(":common").file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        minecraft.accessTransformers.file at
+    }
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+    processResources {
+        duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    }
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+        server {
+            server()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            programArgument '--nogui'
+        }
+        serverdata {
+            serverData()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', rootProject.project(":common").file('src/generated/resources/').getAbsolutePath(), '--existing', rootProject.project(":common").file('src/main/resources/').getAbsolutePath()
+        }
+        clientdata {
+            clientData()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', rootProject.project(":common").file('src/generated/resources/').getAbsolutePath(), '--existing', rootProject.project(":common").file('src/main/resources/').getAbsolutePath()
+        }
+    }
+}
+sourceSets.main.resources { srcDir project(":common").file('src/generated/resources').getAbsolutePath() }
+
+dependencies {
+}
+
+publishMods {
+    file = jar.archiveFile
+    changelog = project(":common").file("changelog.md").text
+    type = STABLE
+    modLoaders.add("neoforge")
+    displayName = "${mod_name}-${minecraft_version}-[NeoForge]-${project.version}"
+    dryRun = dry_run.toBoolean()
+    if (curseforge_publishing_enabled.toBoolean()) {
+        curseforge {
+            projectId = curseforge_project_id
+            accessToken = curseforge_token
+            minecraftVersions.add(minecraft_version)
+            clientRequired = true
+            serverRequired = true
+            javaVersions.add(JavaVersion.VERSION_21)
+        }
+    }
+    if (modrinth_publishing_enabled.toBoolean()) {
+        modrinth {
+            accessToken = modrinth_token
+            projectId = modrinth_project_id
+            minecraftVersions.add(minecraft_version)
+        }
+    }
+}

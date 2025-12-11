@@ -25,19 +25,15 @@ public class TagInit {
 
     }
 
-//    public static TagKey<Morph> morphTag(String path) {
-//        return HMMMorphInit.getRegistry().tags().createTagKey(new ResourceLocation(HundredDaysStory.MODID, path));
-//    }
-
     public static TagKey<Block> blockTag(String path) {
-        return TagKey.create(Registries.BLOCK,new ResourceLocation(Constants.MODID, path));
+        return TagKey.create(Registries.BLOCK,ResourceLocation.fromNamespaceAndPath(Constants.MODID, path));
     }
 
     public static TagKey<Item> itemTag(String path) {
-        return TagKey.create(Registries.ITEM,new ResourceLocation(Constants.MODID, path));
+        return TagKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(Constants.MODID, path));
     }
     public static TagKey<BannerPattern> bannerPatternTag(String path) {
-        return TagKey.create(Registries.BANNER_PATTERN, new ResourceLocation(Constants.MODID,path));
+        return TagKey.create(Registries.BANNER_PATTERN, ResourceLocation.fromNamespaceAndPath(Constants.MODID,path));
     }
 
 }
